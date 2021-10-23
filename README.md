@@ -1,0 +1,1 @@
+in the `/VivaReal` directory run the `scrapy crawl VivaReal -o apartments.json` command
