@@ -18,8 +18,8 @@ class ApartmentsForRentInTubarao(scrapy.Spider):
     name = 'VivaReal'
     start_urls = ['https://www.vivareal.com.br/aluguel/santa-catarina/tubarao/apartamento_residencial/']
 
-    def _parse(self, response, **kwargs):
-        for aparments in response.css('a.js-card-title'):
+    def parse(self, response, **kwargs):
+        for apartments in response.css('a.js-card-title'):
             yield {
                 'title': sanitize(apartments.css('div h2 span::text')[0].get()),
                 'price': sanitize(apartments.css('div section div p::text').get()).replace('R ', ''),
