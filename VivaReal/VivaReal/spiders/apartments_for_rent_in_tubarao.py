@@ -14,6 +14,7 @@ def sanitize(text):
 
 class ApartmentsForRentInTubarao(scrapy.Spider):
     name = 'VivaReal'
+    allowed_domains = ['https://www.vivareal.com.br']
     start_urls = ['https://www.vivareal.com.br/aluguel/santa-catarina/tubarao/apartamento_residencial/']
 
     def parse(self, response, **kwargs):
@@ -27,5 +28,6 @@ class ApartmentsForRentInTubarao(scrapy.Spider):
                 'squareMeter': sanitize(apartment.css('div ul')[0].css('li')[0].css('span::text')[0].get()),
                 'bedrooms': sanitize(apartment.css('div ul')[0].css('li')[1].css('span::text')[0].get()),
                 'bathroom': sanitize(apartment.css('div ul')[0].css('li')[2].css('span::text')[0].get()),
-                'parkingSpaces': sanitize(apartment.css('div ul')[0].css('li')[3].css('span::text')[0].get())
+                'parkingSpaces': sanitize(apartment.css('div ul')[0].css('li')[3].css('span::text')[0].get()),
+                'link': self.allowed_domains[0] + apartment.css('a::attr(href)').get()
             }
