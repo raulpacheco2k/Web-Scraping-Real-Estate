@@ -16,7 +16,7 @@ class Sanitize:
 
 class Locativa(scrapy.Spider):
     name = 'Locativa'
-    allowed_domains = ['https://www.locativa.com.br']
+    allowed_domains = ['https://www.locativa.com.br/']
     start_urls = [
         'https://www.locativa.com.br/alugar?sidebar=S&grade=&itens=32&ordem=&temporada=&pageNum_RSBusca=0&totalRows_RSBusca=0&cod_imovel=&tipo%5B%5D=APARTAMENTO&tipo%5B%5D=CASA&tipo%5B%5D=KITINETI&cidade%5B%5D=TUBARAO&metragem=1&area_menor=&area_maior=&valor_menor=&valor_maior=']
 
@@ -36,7 +36,7 @@ class Locativa(scrapy.Spider):
             yield {
                 'title': Sanitize.clean(property.css('h2::text').get()) + ' ' + Sanitize.clean(
                     property.css('h2 span::text').get()),
-                'price': Sanitize.clean(property.css('.borda-5px::text').get()).replace('R ', ''),
+                'price': self.search(property, '.borda-5px::text').replace('R ', ''),
                 'period': 'Mes',
                 'address': '-',
                 'squareMeter': self.search(property, '.area::text'),
