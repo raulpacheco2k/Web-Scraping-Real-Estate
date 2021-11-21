@@ -22,8 +22,9 @@ class Locativa(scrapy.Spider):
 
     @staticmethod
     def search(property, identifier):
-        if property.css(identifier).get():
-            identifier = Sanitize.clean(property.css(identifier).get())
+        property = property.css(identifier).get()
+        if property:
+            identifier = Sanitize.clean(property)
         else:
             'Sem dados'
 
@@ -36,10 +37,10 @@ class Locativa(scrapy.Spider):
             yield {
                 'title': Sanitize.clean(property.css('h2::text').get()) + ' ' + Sanitize.clean(
                     property.css('h2 span::text').get()),
-                'price': Sanitize.clean(property.css('.borda-5px::text').get()).replace('R ', ''),
+                'price': Sanitize.clean(property.css('.borda-5px::text').get()).replace('R ', '').replace('.', '').replace(',00', ''),
                 'period': 'Mes',
                 'address': '-',
-                'squareMeter': self.search(property, '.area::text'),
+                'squareMeter': self.search(property, '.area::text').replace('m2', ''),
                 'bedrooms': self.search(property, '.dormi::text'),
                 'bathroom': self.search(property, '.banho::text'),
                 'parkingSpaces': self.search(property, '.garagem::text'),
