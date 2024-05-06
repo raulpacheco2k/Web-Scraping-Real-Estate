@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class VivarealPipeline:
+class RealstatePipeline:
     def process_item(self, item, spider):
         return item
