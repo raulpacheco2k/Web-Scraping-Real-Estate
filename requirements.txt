@@ -23,7 +23,7 @@ pycparser==2.22
 PyDispatcher==2.0.7
 pyOpenSSL==24.1.0
 queuelib==1.7.0
-requests==2.31.0
+requests==2.32.0
 requests-file==2.0.0
 Scrapy==2.11.1
 scrapy-splash==0.9.0
